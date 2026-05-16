@@ -689,7 +689,7 @@ def show_paycheck(event):
         f"R$ {paycheck['net_salary']:,.2f}",
         label_color=SUCCESS,
         value_color=SUCCESS,
-        value_font=("Georgia", 15, "bold"),
+        value_font=("Helvetica Neue", 15, "bold")
     )
 
     _divider(pay_content)
