@@ -455,6 +455,46 @@ ctk.CTkFrame(left_panel, height=1, fg_color=BORDER).pack(fill="x", padx=0)
 
 import tkinter.ttk as ttk
 
+def filter_employees():
+    query = search_var.get().strip().lower()
+
+    for row in tree.get_children():
+        tree.delete(row)
+
+    for emp_name in list_employees():
+        if query in emp_name.lower():
+            paycheck = calculate_paycheck(emp_name)
+            tree.insert("", "end", values=(paycheck["name"], paycheck["role"]))
+
+search_var = tk.StringVar()
+search_var.trace('w', lambda *args: filter_employees())
+
+search_frame = ctk.CTkFrame(left_panel, fg_color="transparent")
+search_frame.pack(fill="x", padx=20, pady=(0, 10))
+
+search_icon = ctk.CTkLabel(
+    search_frame,
+    text="🔍",
+    font=("Helvetica Neue", 14),
+    text_color=SUBTEXT,
+)
+search_icon.pack(side="left", padx=(0, 8))
+
+search_entry = ctk.CTkEntry(
+    search_frame,
+    textvariable=search_var,
+    placeholder_text="Buscar por nome...",
+    font=FONT_SMALL,
+    fg_color=SURFACE2,
+    border_color=BORDER,
+    border_width=1,
+    corner_radius=8,
+    height=35,
+    text_color=TEXT,
+    placeholder_text_color=MUTED,
+)
+search_entry.pack(side="left", fill="x", expand=True)
+
 style = ttk.Style()
 style.theme_use("clam")
 style.configure(
